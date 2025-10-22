@@ -18,7 +18,7 @@ variable "source_ids" {
 variable "event_categories" {
   description = "List of event categories for the event subscription."
   type        = list(string)
-  default     = [
+  default = [
     "availability",
     "backup",
     "configuration",

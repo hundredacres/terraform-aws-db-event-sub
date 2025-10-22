@@ -1,0 +1,159 @@
+formatter: "markdown table"
+
+version: ""
+
+header-from: main.tf
+footer-from: ""
+
+recursive:
+  enabled: false
+  path: modules
+
+sections:
+  hide: []
+  show: []
+
+content: |-
+  # Terraform AWS DB Event Subscription
+
+  A Terraform module to create AWS RDS event subscriptions with SNS notifications via email. This module monitors RDS database events and sends email notifications when events occur.
+
+  ## Features
+
+  - Creates an SNS topic for RDS event notifications
+  - Sets up RDS event subscription with configurable event categories
+  - Configures email subscription for receiving notifications
+  - Supports filtering by source type and specific database identifiers
+
+  ## Usage
+
+  ```hcl
+  module "db_event_subscription" {
+    source = "github.com/yourusername/terraform-aws-db-event-sub"
+
+    notification_email = "admin@example.com"
+    source_type        = "db-instance"
+    source_ids         = ["my-rds-instance"]
+
+    event_categories = [
+      "availability",
+      "backup",
+      "failover",
+      "maintenance"
+    ]
+  }
+  ```
+
+  ### Basic Example
+
+  Monitor all RDS instances with default event categories:
+
+  ```hcl
+  module "db_event_subscription" {
+    source = "github.com/yourusername/terraform-aws-db-event-sub"
+
+    notification_email = "dba-team@example.com"
+  }
+  ```
+
+  ### Specific Database Instance
+
+  Monitor a specific RDS instance:
+
+  ```hcl
+  module "db_event_subscription" {
+    source = "github.com/yourusername/terraform-aws-db-event-sub"
+
+    notification_email = "alerts@example.com"
+    source_type        = "db-instance"
+    source_ids         = [aws_db_instance.primary.id]
+  }
+  ```
+
+  {{ .Requirements }}
+
+  {{ .Providers }}
+
+  {{ .Modules }}
+
+  {{ .Resources }}
+
+  {{ .Inputs }}
+
+  {{ .Outputs }}
+
+  ## Email Subscription Confirmation
+
+  After applying this module, AWS will send a confirmation email to the specified address. You must confirm the subscription by clicking the link in the email to start receiving notifications.
+
+  ## Event Categories Reference
+
+  Available event categories depend on the source type:
+
+  ### db-instance
+  - availability
+  - backup
+  - configuration change
+  - creation
+  - deletion
+  - failover
+  - failure
+  - low storage
+  - maintenance
+  - notification
+  - read replica
+  - recovery
+  - restoration
+
+  ### db-parameter-group
+  - configuration change
+
+  ### db-security-group
+  - configuration change
+  - failure
+
+  ### db-snapshot
+  - creation
+  - deletion
+  - failure
+  - notification
+  - restoration
+
+  ## License
+
+  MIT
+
+  ## Contributing
+
+  Contributions are welcome! Please open an issue or submit a pull request.
+
+output:
+  file: "README.md"
+  mode: inject
+  template: |-
+    <!-- BEGIN_TF_DOCS -->
+    {{ .Content }}
+    <!-- END_TF_DOCS -->
+
+output-values:
+  enabled: false
+  from: ""
+
+sort:
+  enabled: true
+  by: name
+
+settings:
+  anchor: true
+  color: true
+  default: true
+  description: false
+  escape: true
+  hide-empty: false
+  html: true
+  indent: 2
+  lockfile: true
+  read-comments: true
+  required: true
+  sensitive: true
+  type: true
