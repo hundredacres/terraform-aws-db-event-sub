@@ -14,3 +14,21 @@ variable "source_ids" {
   type        = list(string)
   default     = []
 }
+
+variable "event_categories" {
+  description = "List of event categories for the event subscription."
+  type        = list(string)
+  default     = [
+    "availability",
+    "backup",
+    "configuration",
+    "deletion",
+    "failover",
+    "low-storage",
+    "maintenance",
+    "notification",
+    "read-replica",
+    "recovery",
+    "restoration"
+  ]
+}
