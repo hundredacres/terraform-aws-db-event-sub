@@ -91,7 +91,7 @@ resource "aws_security_group" "example" {
 
 # Monitor this specific RDS instance
 module "db_event_subscription" {
-  source = "../../"
+  source = "git::https://github.com/hundredacres/terraform-aws-db-event-sub.git?ref=main"
 
   notification_email = "alerts@example.com"
   source_type        = "db-instance"
