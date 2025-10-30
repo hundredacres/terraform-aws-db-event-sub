@@ -8,6 +8,12 @@ variable "notification_email" {
   }
 }
 
+variable "db_events_sns_topic_name" {
+  description = "The name of the SNS topic for RDS event notifications."
+  type        = string
+  default     = "db-event-notifications"
+}
+
 variable "source_type" {
   description = "The type of source that will generate the events. Valid values: db-instance, db-parameter-group, db-security-group, db-snapshot."
   type        = string
@@ -71,4 +77,9 @@ variable "event_categories" {
     condition     = length(var.event_categories) > 0
     error_message = "At least one event category must be specified."
   }
+}
+variable "tags" {
+  description = "A map of tags to add to all resources"
+  type        = map(string)
+  default     = {}
 }

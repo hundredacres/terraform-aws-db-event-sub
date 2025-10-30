@@ -1,5 +1,6 @@
 resource "aws_sns_topic" "db_events" {
-  name = "db-event-notifications"
+  name = var.db_events_sns_topic_name
+  tags = var.tags
 }
 
 resource "aws_db_event_subscription" "db_event_subscription" {
